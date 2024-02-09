@@ -1,8 +1,13 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from "redux";
 
-import menu from './menu';
-import authReducer from './authSlice'
+import menu from "./menu";
+import authReducer from "./authSlice";
+import commentReducer from "./commentSlice";
 
-const reducers = combineReducers({menu, auth: authReducer});
+const reducers = combineReducers({
+  menu,
+  auth: authReducer,
+  comment: commentReducer,
+});
 
 export default reducers;

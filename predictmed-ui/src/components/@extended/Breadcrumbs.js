@@ -2,21 +2,16 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-// material-ui
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 import { Grid, Typography } from '@mui/material';
 
-// project imports
 import MainCard from '../MainCard';
-
-// ==============================|| BREADCRUMBS ||============================== //
 
 const Breadcrumbs = ({ navigation, title, ...others }) => {
   const location = useLocation();
   const [main, setMain] = useState();
   const [item, setItem] = useState();
 
-  // set active item state
   const getCollapse = (menu) => {
     if (menu.children) {
       menu.children.filter((collapse) => {
@@ -42,9 +37,8 @@ const Breadcrumbs = ({ navigation, title, ...others }) => {
     });
   });
 
-  // only used for component demo breadcrumbs
   if (location.pathname === '/breadcrumbs') {
-    location.pathname = '/dashboard/analytics';
+    location.pathname = '/home/analytics';
   }
 
   let mainContent;
@@ -52,7 +46,6 @@ const Breadcrumbs = ({ navigation, title, ...others }) => {
   let breadcrumbContent = <Typography />;
   let itemTitle = '';
 
-  // collapse item
   if (main && main.type === 'collapse') {
     mainContent = (
       <Typography component={Link} to={document.location.pathname} variant="h6" sx={{ textDecoration: 'none' }} color="textSecondary">
@@ -61,7 +54,6 @@ const Breadcrumbs = ({ navigation, title, ...others }) => {
     );
   }
 
-  // items
   if (item && item.type === 'item') {
     itemTitle = item.title;
     itemContent = (
@@ -70,7 +62,6 @@ const Breadcrumbs = ({ navigation, title, ...others }) => {
       </Typography>
     );
 
-    // main
     if (item.breadcrumbs !== false) {
       breadcrumbContent = (
         <MainCard border={false} sx={{ mb: 3, bgcolor: 'transparent' }} {...others} content={false}>

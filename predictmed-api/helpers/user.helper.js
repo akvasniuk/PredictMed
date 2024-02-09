@@ -1,17 +1,17 @@
 module.exports = {
-  userNormalizator: (userToNormalize = {}) => {
-    const fieldsToRemove = [
-      'password',
-      'emailToken',
-      'deleted',
-      'deletedAt',
-      'passwordToken'
-    ];
+    userNormalizator: (userToNormalize = {}, fieldsToRemove = []) => {
+        fieldsToRemove = fieldsToRemove.length ? fieldsToRemove : [
+            'password',
+            'emailToken',
+            'deleted',
+            'deletedAt',
+            'passwordToken',
+        ];
 
-    fieldsToRemove.forEach((filed) => {
-      delete userToNormalize[filed];
-    });
+        fieldsToRemove.forEach((filed) => {
+            delete userToNormalize[filed];
+        });
 
-    return userToNormalize;
-  }
+        return userToNormalize;
+    }
 };

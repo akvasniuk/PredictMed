@@ -1,66 +1,42 @@
-// material-ui
-import { useTheme } from '@mui/material/styles';
-import { useMediaQuery, Button, Stack } from '@mui/material';
+import {useTheme} from '@mui/material/styles';
+import {useMediaQuery, Stack} from '@mui/material';
 
-// assets
-import Google from 'assets/images/icons/google.svg';
-import Twitter from 'assets/images/icons/twitter.svg';
-import Facebook from 'assets/images/icons/facebook.svg';
+import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google"
+import {GOOGLE_CLIENT_ID} from "../../../configs";
+import {authService} from "../../../services";
+import {handleResponse} from "../../../helpers";
 
-// ==============================|| FIREBASE - SOCIAL BUTTON ||============================== //
+const FirebaseSocial = ({setResponse}) => {
+    const theme = useTheme();
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const clientId = GOOGLE_CLIENT_ID
 
-const FirebaseSocial = () => {
-  const theme = useTheme();
-  const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const googleHandler = async (credentialResponse) => {
+        try {
+            const response = await authService.loginGoogle(credentialResponse);
+            setResponse(handleResponse(response));
+        } catch (e) {
+            setResponse(handleResponse(e));
+        }
+    };
 
-  const googleHandler = async () => {
-    // login || singup
-  };
-
-  const twitterHandler = async () => {
-    // login || singup
-  };
-
-  const facebookHandler = async () => {
-    // login || singup
-  };
-
-  return (
-    <Stack
-      direction="row"
-      spacing={matchDownSM ? 1 : 2}
-      justifyContent={matchDownSM ? 'space-around' : 'space-between'}
-      sx={{ '& .MuiButton-startIcon': { mr: matchDownSM ? 0 : 1, ml: matchDownSM ? 0 : -0.5 } }}
-    >
-      <Button
-        variant="outlined"
-        color="secondary"
-        fullWidth={!matchDownSM}
-        startIcon={<img src={Google} alt="Google" />}
-        onClick={googleHandler}
-      >
-        {!matchDownSM && 'Google'}
-      </Button>
-      <Button
-        variant="outlined"
-        color="secondary"
-        fullWidth={!matchDownSM}
-        startIcon={<img src={Twitter} alt="Twitter" />}
-        onClick={twitterHandler}
-      >
-        {!matchDownSM && 'Twitter'}
-      </Button>
-      <Button
-        variant="outlined"
-        color="secondary"
-        fullWidth={!matchDownSM}
-        startIcon={<img src={Facebook} alt="Facebook" />}
-        onClick={facebookHandler}
-      >
-        {!matchDownSM && 'Facebook'}
-      </Button>
-    </Stack>
-  );
+    return (
+        <GoogleOAuthProvider clientId={clientId}>
+            <Stack
+                direction="row"
+                spacing={matchDownSM ? 1 : 2}
+                justifyContent='center'
+                sx={{'& .MuiButton-startIcon': {mr: matchDownSM ? 0 : 1, ml: matchDownSM ? 0 : -0.5}}}
+            >
+                <GoogleLogin onSuccess={googleHandler}
+                             onError={() => {
+                                 console.log("LOGIN FAILED")
+                             }}
+                             useOneTap
+                />
+            </Stack>
+        </GoogleOAuthProvider>
+    );
 };
 
 export default FirebaseSocial;

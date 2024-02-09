@@ -1,5 +1,6 @@
 module.exports = {
   NOT_VALID_DATA: {
+    message: 'Data doesnt valid',
     code: 4220
   },
   USER_IS_REGISTER: {
@@ -71,5 +72,13 @@ module.exports = {
   MAX_FILE_COUNT: {
     message: 'You can load only 2 files',
     code: 4048
+  },
+  USER_NOT_HAVE_COMMENT: {
+    message: 'User doesnt have this comment',
+    code:4049
+  },
+  COMMENT_NOT_EXISTS: {
+    message: 'Comment doesnt exists',
+    code: 40410
   }
 };

@@ -1,61 +1,86 @@
-import { lazy } from 'react';
+import { lazy } from "react";
 
-// project import
-import Loadable from 'components/Loadable';
-import MainLayout from 'layout/MainLayout';
+import Loadable from "components/Loadable";
+import MainLayout from "layout/MainLayout";
 
-// render - dashboard
-const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
+import PrivateRoute from "../components/PrivateRoute";
 
-// render - sample page
-const SamplePage = Loadable(lazy(() => import('pages/extra-pages/SamplePage')));
+const Home = Loadable(lazy(() => import("pages/home")));
 
-// render - utilities
-const Typography = Loadable(lazy(() => import('pages/components-overview/Typography')));
-const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
-const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
-const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons')));
+const SamplePage = Loadable(lazy(() => import("pages/extra-pages/SamplePage")));
 
-// ==============================|| MAIN ROUTING ||============================== //
+const Typography = Loadable(
+  lazy(() => import("pages/components-overview/Typography"))
+);
+const Color = Loadable(lazy(() => import("pages/components-overview/Color")));
+const Shadow = Loadable(lazy(() => import("pages/components-overview/Shadow")));
+const AntIcons = Loadable(
+  lazy(() => import("pages/components-overview/AntIcons"))
+);
+const EditProfile = Loadable(lazy(() => import("pages/user/EditProfile")));
+const UserProfile = Loadable(lazy(() => import("pages/user/UserProfile")));
+const CommentCore = Loadable(lazy(() => import("pages/comment/Core")));
 
 const MainRoutes = {
-  path: '/',
+  path: "/",
   element: <MainLayout />,
   children: [
     {
-      path: '/',
-      element: <DashboardDefault />
+      path: "/",
+      element: <Home />,
     },
     {
-      path: 'color',
-      element: <Color />
+      path: "color",
+      element: <Color />,
     },
     {
-      path: 'dashboard',
+      path: "home",
       children: [
         {
-          path: 'default',
-          element: <DashboardDefault />
-        }
-      ]
+          path: "",
+          element: <Home />,
+        },
+      ],
     },
     {
-      path: 'sample-page',
-      element: <SamplePage />
+      path: "sample-page",
+      element: <SamplePage />,
     },
     {
-      path: 'shadow',
-      element: <Shadow />
+      path: "shadow",
+      element: <Shadow />,
     },
     {
-      path: 'typography',
-      element: <Typography />
+      path: "typography",
+      element: <Typography />,
     },
     {
-      path: 'icons/ant',
-      element: <AntIcons />
-    }
-  ]
+      path: "icons/ant",
+      element: <AntIcons />,
+    },
+    {
+      path: "edit",
+      element: (
+        <PrivateRoute>
+          <EditProfile />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: "profile",
+      element: (
+        <PrivateRoute>
+          <UserProfile />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: "feedback",
+      element: (
+          <CommentCore />
+      ),
+    },
+  ],
 };
 
 export default MainRoutes;

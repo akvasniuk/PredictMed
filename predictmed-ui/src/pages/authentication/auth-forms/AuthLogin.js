@@ -1,7 +1,6 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link as RouterLink, useNavigate, useSearchParams} from 'react-router-dom';
 
-// material-ui
 import {
   Button,
   Checkbox,
@@ -15,26 +14,26 @@ import {
   InputLabel,
   OutlinedInput,
   Stack,
-  Typography
+  Typography, Alert
 } from '@mui/material';
 
-// third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-// project import
 import FirebaseSocial from './FirebaseSocial';
 import AnimateButton from 'components/@extended/AnimateButton';
 
-// assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-
-// ============================|| FIREBASE - LOGIN ||============================ //
+import {authService} from "../../../services";
+import {handleResponse} from "../../../helpers";
+import {useAuth} from "../../../hooks/useAuth";
 
 const AuthLogin = () => {
   const [checked, setChecked] = React.useState(false);
-
   const [showPassword, setShowPassword] = React.useState(false);
+  const [response, setResponse] = useState("");
+  const {userLogin, userLogout} = useAuth();
+  const [query] = useSearchParams();
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -42,6 +41,34 @@ const AuthLogin = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(response && !response?.isError) {
+      authService.setTokens(response?.message);
+      userLogin(response?.message?.user);
+      navigate("/home")
+    }
+
+    if(query.has('expSession')){
+      userLogout();
+    }
+  }, [response?.isError]);
+
+  const handleSubmit = async (values) => {
+    const {email, password} = values;
+
+    try {
+      const responseData = await authService.login({
+        email, password
+      });
+      setResponse(handleResponse(responseData));
+    } catch (e) {
+      setResponse(handleResponse(e));
+    }
+
+  }
 
   return (
     <>
@@ -59,6 +86,7 @@ const AuthLogin = () => {
           try {
             setStatus({ success: false });
             setSubmitting(false);
+            await handleSubmit(values);
           } catch (err) {
             setStatus({ success: false });
             setErrors({ submit: err.message });
@@ -156,13 +184,17 @@ const AuthLogin = () => {
                   </Button>
                 </AnimateButton>
               </Grid>
+              {response && response?.isError
+                  && <Grid item xs={12}>
+                    <Alert severity="error">{response?.message}</Alert>
+                  </Grid>}
               <Grid item xs={12}>
                 <Divider>
                   <Typography variant="caption"> Login with</Typography>
                 </Divider>
               </Grid>
               <Grid item xs={12}>
-                <FirebaseSocial />
+                <FirebaseSocial setResponse={setResponse} />
               </Grid>
             </Grid>
           </form>

@@ -3,8 +3,9 @@ const { errorMessage: { ROUT_NOT_FOUND, UNKNOWN_ERROR } } = require('../error');
 module.exports = {
   // eslint-disable-next-line no-unused-vars
   _handleErrors(err, req, res, next) {
+    console.log(err)
     res
-      .status(err.status)
+      .status(err.status ?? 500)
       .json({
         message: err.message || UNKNOWN_ERROR.message,
         customCode: err.code || UNKNOWN_ERROR.code

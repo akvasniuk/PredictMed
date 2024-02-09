@@ -1,13 +1,9 @@
 import PropTypes from 'prop-types';
 
-// material-ui
 import { Box, Card, Grid, Stack, Typography } from '@mui/material';
 
-// project import
 import MainCard from 'components/MainCard';
 import ComponentSkeleton from './ComponentSkeleton';
-
-// ===============================|| COLOR BOX ||=============================== //
 
 function ColorBox({ bgcolor, title, data, dark, main }) {
   return (
@@ -54,8 +50,6 @@ ColorBox.propTypes = {
   dark: PropTypes.bool,
   main: PropTypes.bool
 };
-
-// ===============================|| COMPONENT - COLOR ||=============================== //
 
 const ComponentColor = () => (
   <ComponentSkeleton>

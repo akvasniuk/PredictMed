@@ -1,20 +1,21 @@
 import { useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
-// assets
 import { CommentOutlined, LockOutlined, QuestionCircleOutlined, UserOutlined, UnorderedListOutlined } from '@ant-design/icons';
-
-// ==============================|| HEADER PROFILE - SETTING TAB ||============================== //
+import {useNavigation} from "react-router-dom";
 
 const SettingTab = () => {
   const theme = useTheme();
+  const navigation = useNavigation();
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
+    if(selectedIndex === 0){
+        navigation("/edit");
+    }
   };
 
   return (

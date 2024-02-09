@@ -18,6 +18,9 @@ const urls = {
     },
     user: {
         userURL: "/users/"
+    },
+    comment: {
+        commentURL: "/comments"
     }
 }
 

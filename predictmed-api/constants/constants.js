@@ -13,6 +13,7 @@ module.exports = {
   EMAIL_TOKEN_TIME: '7d',
   PASSWORD_TOKEN_TIME: '30m',
   SYSTEM_EMAIL: process.env.SYSTEM_EMAIL || '12@gmail.com',
-  SYSTEM_EMAIL_PASSWORD: process.env.SYSTEM_EMAIL_PASS || '123456user',
-  LOCALHOST_URL: 'http://localhost:3000'
+  SYSTEM_EMAIL_PASSWORD: process.env.SYSTEM_EMAIL_PASSWORD || '123456user',
+  LOCALHOST_URL: 'http://localhost:3000',
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || '123'
 };

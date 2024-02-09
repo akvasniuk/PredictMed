@@ -1,14 +1,15 @@
-// material-ui
 import { Box, Typography } from '@mui/material';
 
-// project import
 import NavGroup from './NavGroup';
 import menuItem from 'menu-items';
-
-// ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
+import {useAuth} from '../../../../../hooks/useAuth';
 
 const Navigation = () => {
-  const navGroups = menuItem.items.map((item) => {
+  const {userIsAuthenticated} = useAuth();
+
+  const navGroups = menuItem.items.filter(item =>
+      userIsAuthenticated() ? item.id !== "authentication": true)
+      .map((item) => {
     switch (item.type) {
       case 'group':
         return <NavGroup key={item.id} item={item} />;

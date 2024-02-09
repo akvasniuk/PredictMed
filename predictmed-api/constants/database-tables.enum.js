@@ -1,4 +1,6 @@
 module.exports = {
   USER: 'User',
-  OAUTH: 'OAuth'
+  OAUTH: 'OAuth',
+  VIEW: "View",
+  COMMENT: "Comment"
 };

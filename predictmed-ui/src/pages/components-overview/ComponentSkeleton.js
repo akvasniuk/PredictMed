@@ -1,13 +1,8 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-
-// material-ui
 import { Grid, Skeleton, Stack } from '@mui/material';
 
-// project import
 import MainCard from 'components/MainCard';
-
-// ===============================|| COMPONENT - SKELETON ||=============================== //
 
 const ComponentSkeleton = ({ children }) => {
   const [isLoading, setLoading] = useState(true);

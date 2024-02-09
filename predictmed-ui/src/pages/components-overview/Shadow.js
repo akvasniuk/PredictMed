@@ -1,14 +1,10 @@
 import PropTypes from 'prop-types';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Stack, Typography } from '@mui/material';
 
-// project import
 import MainCard from 'components/MainCard';
 import ComponentSkeleton from './ComponentSkeleton';
-
-// ===============================|| SHADOW BOX ||=============================== //
 
 function ShadowBox({ shadow }) {
   return (
@@ -24,8 +20,6 @@ function ShadowBox({ shadow }) {
 ShadowBox.propTypes = {
   shadow: PropTypes.string.isRequired
 };
-
-// ===============================|| CUSTOM - SHADOW BOX ||=============================== //
 
 function CustomShadowBox({ shadow, label, color, bgcolor }) {
   return (
@@ -45,8 +39,6 @@ CustomShadowBox.propTypes = {
   label: PropTypes.string.isRequired,
   bgcolor: PropTypes.string
 };
-
-// ============================|| COMPONENT - SHADOW ||============================ //
 
 const ComponentShadow = () => {
   const theme = useTheme();

@@ -6,5 +6,8 @@ module.exports = {
   SUCCESSFUL_CREATED: 'Successful created',
   CHECK_YOUR_EMAIL: 'Check email for activation',
   ACCOUNT_SUCCESSFUL_ACTIVATED: 'Account successful activated',
-  PASSWORD_SUCCESSFUL_CHANGED: 'Password successful changed'
+  PASSWORD_SUCCESSFUL_CHANGED: 'Password successful changed',
+  LOGIN_SUCCESS: 'You successful login',
+  VIEW_CREATED: "View created",
+  CREATED: "Successful created"
 };

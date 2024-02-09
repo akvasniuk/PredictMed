@@ -12,8 +12,7 @@ const oAuthScheme = new Schema({
     type: String
   },
   emailToken: {
-    type: String,
-    required: true,
+    type: String
   },
   user: {
     type: Schema.Types.ObjectId,
