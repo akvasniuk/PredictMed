@@ -25,7 +25,7 @@ const areaChartOptions = {
     }
 };
 
-const IncomeAreaChart = ({slot, usersByMonth, viewsByMonth, usersByWeek, viewsByWeek}) => {
+const IncomeAreaChart = ({slot, usersByMonth , viewsByMonth , usersByWeek , viewsByWeek  }) => {
     const theme = useTheme();
 
     const {primary, secondary} = theme.palette.text;

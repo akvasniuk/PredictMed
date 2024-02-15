@@ -1,7 +1,8 @@
 const router = require('express').Router();
 
 const {authController} = require('../controllers');
-const {authMiddleware} = require('../middlewars');
+const {authMiddleware, userMiddleware} = require('../middlewars');
+const {userService} = require("../services");
 
 router.post('/login',
     authMiddleware.checkIsUserDataValid,
@@ -16,7 +17,10 @@ router.post("/loginGoogle",
     authController.loginGoogle
 );
 
-router.post('/logout', authMiddleware.checkAccessToken, authController.logout);
+router.post('/logout/:userId',
+    userMiddleware.isUserExists,
+    authMiddleware.checkAccessToken,
+    authController.logout);
 
 router.post('/refresh', authMiddleware.checkRefreshToken, authController.refresh);
 

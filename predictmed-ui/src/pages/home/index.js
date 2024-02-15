@@ -19,7 +19,7 @@ const Home = () => {
 
   const chooseColorOnPercentage = (percentage) => {
     let color;
-
+    console.log(percentage)
     if(percentage > 50 && percentage < 25){
       color = "warning";
     }else if(percentage < 25){
@@ -107,12 +107,12 @@ const Home = () => {
         <Typography variant="h5">Dashboard</Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Total Page Views" color={chooseColorOnPercentage(userStatistics?.percentage)} count={viewStatistics?.totalViews}
-                           percentage={viewStatistics?.percentage.toFixed(2)} extra={viewStatistics?.totalNewViews} />
+        <AnalyticEcommerce title="Total Page Views" color={chooseColorOnPercentage(viewStatistics?.percentage)} count={viewStatistics?.totalViews}
+                           percentage={viewStatistics?.percentage?.toFixed(2)} extra={viewStatistics?.totalNewViews} />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Users" color={chooseColorOnPercentage(userStatistics?.percentage)} count={userStatistics?.totalUsers}
-                           percentage={userStatistics?.percentage.toFixed(2)} extra={userStatistics?.totalNewUsers} />
+                           percentage={userStatistics?.percentage?.toFixed(2)} extra={userStatistics?.totalNewUsers} />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Disease Analysis" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />

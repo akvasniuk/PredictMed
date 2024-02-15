@@ -56,8 +56,11 @@ module.exports = {
     logout: async (req, res, next) => {
         try {
             const {accessToken} = req.user;
+            const {userId} = req.params;
 
-            await OAuth.remove({accessToken});
+            await OAuth.deleteOne({accessToken});
+
+            onlineUsers.delete(userId);
 
             res.status(statusCode.DELETED).json(successfulMessage.SUCCESSFUL_LOGOUT);
         } catch (e) {

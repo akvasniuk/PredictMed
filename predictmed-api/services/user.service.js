@@ -2,6 +2,16 @@ const {User} = require('../database');
 
 module.exports = {
     getAllUsers: () => User.find({deleted: false}),
+    getAllUsersByParam: (userId, isAdmin) => User.find({
+        _id: {$ne: userId},
+        role: isAdmin ? "ADMIN" : "USER",
+        deleted: false
+    }).select([
+        "firstname",
+        "lastname",
+        "avatar",
+        "_id"
+    ]),
 
     insertUser: (user) => User.create(user),
 
@@ -40,8 +50,8 @@ module.exports = {
         {
             $group: {
                 _id: {
-                  year: { $year: '$createdAt' },
-                  month: { $month: '$createdAt' }
+                    year: {$year: '$createdAt'},
+                    month: {$month: '$createdAt'}
                 },
                 count: {$sum: 1},
             },
@@ -62,8 +72,8 @@ module.exports = {
         {
             $group: {
                 _id: {
-                    week: { $week: '$createdAt' },
-                    day: { $dayOfWeek : '$createdAt' }
+                    week: {$week: '$createdAt'},
+                    day: {$dayOfWeek: '$createdAt'}
                 },
                 count: {$sum: 1},
             },

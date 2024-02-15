@@ -49,6 +49,24 @@ module.exports = {
         }
     },
 
+    getUsersToChat: async (req, res, next) => {
+        try {
+            const {userId} = req.params;
+            let users;
+
+            if (req.query.admin) {
+                users = await userService.getAllUsersByParam(userId, true);
+            }else{
+                users = await userService.getAllUsersByParam(userId);
+            }
+            console.log(req.query)
+
+            return res.json(users);
+        } catch (e) {
+            next(e);
+        }
+    },
+
     deleteUser: async (req, res, next) => {
         try {
             const {user, user: {_id}} = req;

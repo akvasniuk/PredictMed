@@ -1,3 +1,3 @@
 module.exports = {
-  fileExtensionValidator: require('./file-extension-validator')
+  fileExtensionValidator: require('./file.extension.validator')
 };

@@ -1,3 +1,3 @@
 module.exports = {
-  urlValidator: require('./url-id-validator')
+  urlValidator: require('./url.id.validator')
 };

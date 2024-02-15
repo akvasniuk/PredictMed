@@ -23,6 +23,10 @@ const userSchema = new Schema({
         required: false,
         select: false
     },
+    role: {
+      type: String,
+      default: 'USER'
+    },
     isUserActivated: {
         type: Boolean,
         default: false

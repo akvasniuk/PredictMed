@@ -11,16 +11,8 @@ const commentSlice = createSlice({
         setCommentSection: (state, action) => {
             state.commentSection = action.payload;
         },
-        editComment: (state, action) => {
-            console.log(action)
-            state.commentSection.comments.push({
-                id: action.payload._id,
-                content: action.payload.comment,
-                createdAt: action.payload.createdAt,
-                score: action.payload.score,
-                replies: action.payload.replies,
-                user: {username: "juliusomo"},
-            });
+        addComment: (state, action) => {
+          state.commentSection.comments.unshift(action.payload);
         },
         deleteComment: (state, action) => {
             state.commentSection.comments = state.commentSection.comments.filter(
@@ -33,10 +25,7 @@ const commentSlice = createSlice({
             );
 
             state.commentSection.comments[commentsIdx].replies.push(action.payload.reply);
-        },
-        deleteReply: (state, action) => {
-            // Implement deleting a reply if needed
-        },
+        }
     },
 });
 

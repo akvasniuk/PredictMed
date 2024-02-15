@@ -5,7 +5,8 @@ const urls = {
         login: "/auth/login",
         register: "/users",
         loginGoogle: "/auth/loginGoogle",
-        refresh: "/auth/refresh"
+        refresh: "/auth/refresh",
+        logout: "/auth/logout"
     },
     statistics: {
         getNumberOfUsers: "/statistics/totalUserStatistics",
@@ -21,6 +22,15 @@ const urls = {
     },
     comment: {
         commentURL: "/comments"
+    },
+    chat: {
+        addMessage: '/chat/postMessage',
+        getMessages: '/chat/getMessages'
+    },
+    disease: {
+        diseaseURL: "/diseases",
+        analyseURL: "/analysis",
+        diseasesHistoryURL: "/diseasesHistory",
     }
 }
 

@@ -22,11 +22,11 @@ import {
 import MainCard from 'components/MainCard';
 import Transitions from 'components/@extended/Transitions';
 import ProfileTab from './ProfileTab';
-import SettingTab from './SettingTab';
 
 import avatar from 'assets/images/users/avatar.jpg';
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import {useNavigate} from "react-router-dom";
+import {authService} from "../../../../../services";
 
 function TabPanel({ children, value, index, ...other }) {
   return (
@@ -56,8 +56,13 @@ const Profile = () => {
   const user = getUser();
 
   const handleLogout = async () => {
-     navigate("/login");
-     userLogout();
+     try {
+       navigate("/login");
+       userLogout();
+       await authService.userLogout(user._id);
+     }catch (e){
+       console.log(e);
+     }
   };
 
   const anchorRef = useRef(null);
@@ -143,7 +148,7 @@ const Profile = () => {
                             <Stack>
                               <Typography variant="h6">{user ? `${user?.firstname} ${user?.lastname}` : "John Doe"}</Typography>
                               <Typography variant="body2" color="textSecondary">
-                                USER
+                                {user?.role}
                               </Typography>
                             </Stack>
                           </Stack>

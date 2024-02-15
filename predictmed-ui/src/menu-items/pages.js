@@ -16,7 +16,7 @@ const pages = {
       type: 'item',
       url: '/login',
       icon: icons.LoginOutlined,
-      target: true
+      target: true,
     },
     {
       id: 'register1',

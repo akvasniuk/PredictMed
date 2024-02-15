@@ -14,7 +14,7 @@ const AddComment = () => {
             <Card>
                 <Box sx={{p: "15px"}}>
                     <Stack direction="row" spacing={2} alignItems="flex-start">
-                        <Avatar src={user.avatar} variant="rounded" alt="user-avatar"/>
+                        <Avatar src={user?.avatar} variant="rounded" alt="user-avatar"/>
                         <EditableCommentField
                             commentText={commentTxt}
                             setCommentText={setCommentTxt}

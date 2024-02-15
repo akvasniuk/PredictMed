@@ -8,6 +8,10 @@ const {
 } = require('../middlewars');
 
 router.get('/', userController.allUser);
+router.get('/chat/:userId',
+    userMiddleware.isUserExists,
+    authMiddleware.checkAccessToken,
+    userController.getUsersToChat);
 
 router.post('/',
   fileMiddleware.checkFiles,

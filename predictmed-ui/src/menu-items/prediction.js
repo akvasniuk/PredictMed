@@ -4,7 +4,8 @@ import {
   BarcodeOutlined,
   BgColorsOutlined,
   FontSizeOutlined,
-  LoadingOutlined
+  LoadingOutlined,
+  MonitorOutlined
 } from '@ant-design/icons';
 
 
@@ -14,7 +15,8 @@ const icons = {
   BarcodeOutlined,
   AntDesignOutlined,
   LoadingOutlined,
-  AppstoreAddOutlined
+  AppstoreAddOutlined,
+  MonitorOutlined
 };
 
 const prediction = {
@@ -23,34 +25,12 @@ const prediction = {
   type: 'group',
   children: [
     {
-      id: 'util-typography',
-      title: 'Typography',
+      id: 'predict',
+      title: 'Predict diseases',
       type: 'item',
-      url: '/typography',
-      icon: icons.FontSizeOutlined
+      url: '/predict',
+      icon: icons.MonitorOutlined
     },
-    {
-      id: 'util-color',
-      title: 'Color',
-      type: 'item',
-      url: '/color',
-      icon: icons.BgColorsOutlined
-    },
-    {
-      id: 'util-shadow',
-      title: 'Shadow',
-      type: 'item',
-      url: '/shadow',
-      icon: icons.BarcodeOutlined
-    },
-    // {
-    //   id: 'ant-icons',
-    //   title: 'Ant Icons',
-    //   type: 'item',
-    //   url: '/icons/ant',
-    //   icon: icons.AntDesignOutlined,
-    //   breadcrumbs: false
-    // }
   ]
 };
 

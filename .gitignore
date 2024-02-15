@@ -2,3 +2,5 @@
 PredictMed.iml
 predictmed-api.iml
 predictmed-ui.iml
+predictmed-ml/.ipynb_checkpoints
+predictmed-ml/lung-and-colon-cancer-histopathological-images

@@ -19,8 +19,8 @@ const support = {
       id: "tech-support",
       title: "Technical Support",
       type: "item",
-      url: "/sample-page",
-      icon: icons.QuestionOutlined,
+      url: "/support",
+      icon: icons.QuestionOutlined
     },
     {
       id: "feedback",

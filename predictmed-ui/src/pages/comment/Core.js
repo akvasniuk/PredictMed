@@ -8,14 +8,16 @@ import {
     setCommentSection,
 } from "../../store/reducers/commentSlice";
 import {commentService} from "../../services";
+import {useAuth} from "../../hooks/useAuth";
 
 const Core = () => {
     const location = useLocation();
     const navigation = useNavigate();
     const dispatch = useDispatch();
+    const isAuthenticated = useAuth().userIsAuthenticated();
 
     const [page, setPage] = useState(
-        parseInt(location?.href?.search?.split("=")[1] || 1)
+        parseInt(location?.search?.split("=")[1] || 1)
     );
 
     const [pageQty, setPageQty] = useState();
@@ -40,7 +42,8 @@ const Core = () => {
         }
 
         getComments();
-    }, [page, pageQty, location.href, navigation]);
+    }, [page, pageQty, location.search, navigation]);
+    console.log(comments)
 
     return (
         pageQty && pageQty > 0 && (
@@ -66,10 +69,10 @@ const Core = () => {
                 </Stack>
 
                 <Stack spacing={3}>
-                    {comments?.map((comment) => (
+                    {comments.length > 0 && comments.map((comment) => (
                         <Comment key={comment._id} onPass={comment} />
                     ))}
-                    {page === pageQty ? <AddComment /> : <></>}
+                    {page === 1 && isAuthenticated ? <AddComment /> : <></>}
                 </Stack>
             </Container>
         )

@@ -15,5 +15,8 @@ module.exports = {
   SYSTEM_EMAIL: process.env.SYSTEM_EMAIL || '12@gmail.com',
   SYSTEM_EMAIL_PASSWORD: process.env.SYSTEM_EMAIL_PASSWORD || '123456user',
   LOCALHOST_URL: 'http://localhost:3000',
-  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || '123'
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || '123',
+  FRONT_CONNECTION_URL: process.env.FRONT_CONNECTION_URL,
+  OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+  FASTAPI_CONNECTION_URL: process.env.FASTAPI_CONNECTION_URL
 };

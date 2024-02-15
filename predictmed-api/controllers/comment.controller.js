@@ -52,8 +52,8 @@ module.exports = {
             const commentsCount = await commentService.countComments();
             let comments = await commentService.getComments(+page, +perPage);
 
-            comments = await Promise.all(comments.map(async comment => {
-                const user = userHelper.userNormalizator(comment.userId.toJSON(), [
+            comments = await Promise.all(comments?.map(async comment => {
+                const user = userHelper.userNormalizator(comment?.userId?.toJSON(), [
                     "deleted",
                     "deletedAt",
                     "createdAt",
@@ -67,7 +67,7 @@ module.exports = {
                 if (comment.replies.length > 0) {
                     for (const reply of comment.replies) {
                         const userObj = await userService.findUser({_id: reply.userId});
-                        const normalizeUser = userHelper.userNormalizator(userObj.toJSON(), [
+                        const normalizeUser = userHelper.userNormalizator(userObj?.toJSON(), [
                             "deleted",
                             "deletedAt",
                             "createdAt",
@@ -76,7 +76,7 @@ module.exports = {
                             "isUserActivated",
                             "email"
                         ]);
-                        repliesArr.push({...reply.toJSON(), user: normalizeUser});
+                        repliesArr.push({...reply?.toJSON(), user: normalizeUser});
                     }
 
                     repliesArr.forEach(reply => {

@@ -25,6 +25,7 @@ const authService = {
             Authorization: refresh
         }
     }),
+    userLogout: (userId) => axiosService.post(`${urls.auth.logout}/${userId}`),
 
     setTokens: ({accessToken, refreshToken, user}) => {
         localStorage.setItem(_accessTokenKey, accessToken);

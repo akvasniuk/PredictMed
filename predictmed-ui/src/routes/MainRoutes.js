@@ -7,19 +7,13 @@ import PrivateRoute from "../components/PrivateRoute";
 
 const Home = Loadable(lazy(() => import("pages/home")));
 
-const SamplePage = Loadable(lazy(() => import("pages/extra-pages/SamplePage")));
+const Chat = Loadable(lazy(() => import("pages/chat/Chat")));
 
-const Typography = Loadable(
-  lazy(() => import("pages/components-overview/Typography"))
-);
-const Color = Loadable(lazy(() => import("pages/components-overview/Color")));
-const Shadow = Loadable(lazy(() => import("pages/components-overview/Shadow")));
-const AntIcons = Loadable(
-  lazy(() => import("pages/components-overview/AntIcons"))
-);
 const EditProfile = Loadable(lazy(() => import("pages/user/EditProfile")));
 const UserProfile = Loadable(lazy(() => import("pages/user/UserProfile")));
 const CommentCore = Loadable(lazy(() => import("pages/comment/Core")));
+const PredictsPage = Loadable(lazy(() => import("pages/predictions/Predictions")));
+const PredictStepsPage = Loadable(lazy(() => import("pages/prediction/PredictionSteps")));
 
 const MainRoutes = {
   path: "/",
@@ -28,10 +22,6 @@ const MainRoutes = {
     {
       path: "/",
       element: <Home />,
-    },
-    {
-      path: "color",
-      element: <Color />,
     },
     {
       path: "home",
@@ -43,20 +33,16 @@ const MainRoutes = {
       ],
     },
     {
-      path: "sample-page",
-      element: <SamplePage />,
+      path: "support",
+      element: <PrivateRoute><Chat /></PrivateRoute>,
     },
     {
-      path: "shadow",
-      element: <Shadow />,
+      path: "predict",
+      element: <PredictsPage />,
     },
     {
-      path: "typography",
-      element: <Typography />,
-    },
-    {
-      path: "icons/ant",
-      element: <AntIcons />,
+      path: "predict/:predictionId",
+      element: <PredictStepsPage />,
     },
     {
       path: "edit",
