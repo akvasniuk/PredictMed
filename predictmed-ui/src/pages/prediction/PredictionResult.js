@@ -58,12 +58,16 @@ const PredictionResult = ({diseaseName, predictionResult, photo}) => {
             if (!clickedHistory) {
                 const {data} = await diseaseService.getDiseaseHistory(user._id);
                 setDiseaseHistory(data.diseasesHistory);
-                console.log(diseaseHistory)
+                console.log(data)
             }
             setClickedHistory(!clickedHistory);
         } catch (e) {
             console.log(e);
         }
+    }
+
+    const isNumber = (value) => {
+        return /^\d+$/.test(value);
     }
 
     return (
@@ -85,7 +89,9 @@ const PredictionResult = ({diseaseName, predictionResult, photo}) => {
                     <CardContent>
                         <Typography variant="body1" color="text.secondary">
                             Your prediction of {diseaseName} disease is
-                            {predictionResult.prediction === 0 ? " you are healthy" : " unfortunate news."}
+                            {isNumber(predictionResult.prediction) ?
+                                +predictionResult.prediction === 0 ? " you are healthy" : " unfortunate news."
+                             : ` ${predictionResult.prediction}`}
                         </Typography>
                         {(clicked && !analyse) && <LinearProgress/>}
                         {analyse &&
@@ -106,7 +112,7 @@ const PredictionResult = ({diseaseName, predictionResult, photo}) => {
                 </Card>
             </Grid>
             <br/>
-            {clickedHistory && diseaseHistory.map(disease => (
+            {clickedHistory && diseaseHistory.length > 0 &&  diseaseHistory.map(disease => (
                 <>
                     <Divider/>
                 <Grid container justifyContent="center" alignItems="center" key={disease._id} >

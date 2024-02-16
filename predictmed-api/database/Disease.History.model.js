@@ -14,10 +14,9 @@ const diseaseHistorySchema = new Schema({
         required: true
     },
     prediction: {
-        type: Number,
+        type: String,
         required: true
-    },
-
+    }
 }, {timestamps: true});
 
 diseaseHistorySchema.pre('find', function () {

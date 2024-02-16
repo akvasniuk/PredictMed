@@ -4,3 +4,13 @@ predictmed-api.iml
 predictmed-ui.iml
 predictmed-ml/.ipynb_checkpoints
 predictmed-ml/lung-and-colon-cancer-histopathological-images
+predictmed-ml/alzheimer_img
+predictmed-ml/lung_colon_img
+predictmed-ml/skin_diseases_img
+predictmed-ml/skin2_diseases_img
+predictmed-ml/skin3_diseases_img
+predictmed-ml/x_ray_img
+predictmed-ml/okular_img
+predictmed-ml/multi_diseaes_img
+predictmed-ml/malaria_img
+predictmed-ml/diseases_img
