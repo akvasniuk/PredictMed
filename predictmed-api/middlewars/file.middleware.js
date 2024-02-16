@@ -91,9 +91,25 @@ module.exports = {
     }
   },
 
+  checkImageForPrediction: (req, res, next) => {
+    try {
+      if (req.photos) {
+        if (req.photos.length > 1) {
+          throw new ErrorHandler(statusCode.BAD_REQUEST, errorMessage.JUST_ONE_PHOTO.message, errorMessage.JUST_ONE_PHOTO.code);
+        }
+
+        req.imagePrediction = req.photos[0];
+      }
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  },
+
   checkFilesCount: (req, res, next) => {
     try {
-      const { documents, videos } = req;
+      const { documents, videos} = req;
 
       const file = documents || videos;
 

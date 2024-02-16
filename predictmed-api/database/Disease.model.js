@@ -19,6 +19,7 @@ const diseaseSchema = new Schema({
         type: String,
         required: true
     },
+    diseases: Array,
     partsOfTheBody: Array,
     description: {
         type: String,

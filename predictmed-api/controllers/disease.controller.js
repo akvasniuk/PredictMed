@@ -38,11 +38,22 @@ module.exports = {
         try {
             const {diseaseName} = req.params;
             const bodyData = req.body;
-            const disease = await diseaseService.findDisease({name: diseaseName}, { __v: 0});
+            const disease = await diseaseService.findDisease({name: diseaseName}, {__v: 0});
+            const {imagePrediction} = req;
+            let responseData;
 
-            const {data} = await axios.post(disease.apiPath, bodyData)
+            if (imagePrediction) {
+                const formData = new FormData();
+                const fileBlob = new Blob([imagePrediction.data], { type: imagePrediction.mimetype })
+                formData.append("file", fileBlob, imagePrediction.name);
+                const {data} = await axios.post(disease.apiPath, formData);
+                responseData = data;
+            } else {
+                const {data} = await axios.post(disease.apiPath, bodyData)
+                responseData = data;
+            }
 
-            res.status(statusCode.UPDATED).json(data);
+            res.status(statusCode.UPDATED).json(responseData);
         } catch (e) {
             next(e);
         }
