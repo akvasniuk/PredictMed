@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const { constants } = require('./constants');
 const { userRouter, authRouter, statisticsRouter, commentRouter, chatRouter, analysisRouter, diseaseRouter,
-  diseaseHistoryRouter
+  diseaseHistoryRouter, userHealthRouter
 } = require('./routes');
 const { errorHandlerHelper: { _handleErrors, _notFoundHandler }, connectToDB: { _mongooseConnector } } = require('./helpers');
 const {socketService} = require("./socket");
@@ -36,6 +36,7 @@ app.use('/chat', chatRouter);
 app.use('/analysis', analysisRouter);
 app.use('/diseases', diseaseRouter);
 app.use('/diseasesHistory', diseaseHistoryRouter);
+app.use('/health', userHealthRouter);
 
 app.use(_handleErrors);
 app.use('*', _notFoundHandler);

@@ -6,3 +6,4 @@ module.exports.chatController = require('./chat.controller');
 module.exports.analysisController = require('./analysis.controller');
 module.exports.diseaseController = require('./disease.controller');
 module.exports.diseaseHistoryController = require('./disease.history.controller');
+module.exports.userHealthController = require('./user.health.controller');

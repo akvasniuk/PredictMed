@@ -21,7 +21,7 @@ const diseaseHistorySchema = new Schema({
 
 diseaseHistorySchema.pre('find', function () {
     this.populate('userId');
-    this.populate('diseaseId')
+    this.populate('diseaseId');
 });
 
 module.exports = model(dataBaseTablesEnum.DISEASE_HISTORY, diseaseHistorySchema);

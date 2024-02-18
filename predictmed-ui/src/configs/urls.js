@@ -18,7 +18,8 @@ const urls = {
         getNumberOfViewsByWeek: "/statistics/totalViewStatisticsByWeek"
     },
     user: {
-        userURL: "/users/"
+        userURL: "/users/",
+        userHealthURL: '/health'
     },
     comment: {
         commentURL: "/comments"

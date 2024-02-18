@@ -5,3 +5,5 @@ module.exports.Comment = require('./Comment.model');
 module.exports.Message = require('./Message.model');
 module.exports.Disease = require('./Disease.model');
 module.exports.DiseaseHistory = require('./Disease.History.model');
+module.exports.UserThread = require('./User.Thread.model');
+module.exports.UserHealth = require('./User.Health.model');

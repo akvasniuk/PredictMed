@@ -6,6 +6,7 @@
   "reload": "nodemon app.js"
  },
  "dependencies": {
+  "@googleapis/fitness": "^2.0.5",
   "axios": "^1.6.7",
   "bcrypt": "^5.1.1",
   "cors": "^2.8.5",
@@ -14,6 +15,7 @@
   "express": "^4.18.2",
   "express-fileupload": "^1.4.3",
   "google-auth-library": "^9.6.2",
+  "googleapis": "^133.0.0",
   "hnswlib-node": "^2.1.0",
   "joi": "^17.12.1",
   "jsonwebtoken": "^9.0.2",

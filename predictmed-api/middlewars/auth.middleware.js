@@ -6,7 +6,7 @@ const {userService} = require('../services');
 const {authValidator} = require('../validators');
 const {OAuth2Client} = require('google-auth-library');
 const {GOOGLE_CLIENT_ID} = require("../constants/constants");
-const {response} = require("express");
+
 
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 

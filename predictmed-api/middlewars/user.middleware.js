@@ -64,6 +64,20 @@ module.exports = {
     }
   },
 
+  isUserHealthDataValid: async (req, res, next) => {
+    try {
+      const { error } = await userValidator.userHealthValidator.validate(req.body);
+
+      if (error) {
+        throw new ErrorHandler(statusCode.BAD_REQUEST, error.details[0].message, errorMessage.NOT_VALID_DATA.code);
+      }
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  },
+
   isUserUpdateDataValid: async (req, res, next) => {
     try {
       const { error } = await userValidator.updateUserValidator.validate(req.body);
