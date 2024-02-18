@@ -6,3 +6,4 @@ module.exports.chatRouter = require('./chat.routes');
 module.exports.analysisRouter = require('./analysis.routes');
 module.exports.diseaseRouter = require('./disease.routes');
 module.exports.diseaseHistoryRouter = require('./disease.history.routes');
+module.exports.userHealthRouter = require('./user.health.routes');

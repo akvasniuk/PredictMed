@@ -5,3 +5,5 @@ module.exports.commentService = require('./comment.service');
 module.exports.messageService = require('./message.service');
 module.exports.diseaseService = require('./disease.service');
 module.exports.diseaseHistoryService = require('./disease.history.service');
+module.exports.userThreadService = require('./user.thread.service');
+module.exports.userHealthService = require('./user.health.service');
