@@ -1,4 +1,4 @@
-const {userService, viewService} = require("../services");
+const {userService, viewService, diseaseHistoryService, analyseService} = require("../services");
 const {statusCode, successfulMessage} = require("../constants");
 
 
@@ -17,6 +17,44 @@ module.exports = {
             const totalNewUsers = totalUsers - totalUsersFromLastYear;
 
             res.status(statusCode.UPDATED).json({totalUsers, percentage, totalNewUsers});
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    getNumberOfPredictions: async (req, res, next) => {
+        try {
+            const totalPredictions = await diseaseHistoryService.getTotalDiseases();
+
+            const currentDate = new Date();
+            const lastYearDate = new Date(currentDate.getFullYear() - 1,
+                currentDate.getMonth(), currentDate.getDate());
+
+            const result = await diseaseHistoryService.getDiseasesFromYear(lastYearDate);
+            const totalPredictionsFromLastYear = result?.length > 0 ? result[0].totalPredictions : 0;
+            const percentage = ((totalPredictions - totalPredictionsFromLastYear) / totalPredictions) * 100;
+            const totalNewPredictions = totalPredictions - totalPredictionsFromLastYear;
+
+            res.status(statusCode.UPDATED).json({totalPredictions, percentage, totalNewPredictions});
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    getNumberOfAnalysis: async (req, res, next) => {
+        try {
+            const totalAnalysis = await analyseService.totalAnalysis();
+
+            const currentDate = new Date();
+            const lastYearDate = new Date(currentDate.getFullYear() - 1,
+                currentDate.getMonth(), currentDate.getDate());
+
+            const result = await analyseService.getAnalysisFromYear(lastYearDate);
+            const totalAnalysisFromLastYear = result?.length > 0 ? result[0].totalAnalyse : 0;
+            const percentage = ((totalAnalysis - totalAnalysisFromLastYear) / totalAnalysis) * 100;
+            const totalNewAnalysis = totalAnalysis - totalAnalysisFromLastYear;
+
+            res.status(statusCode.UPDATED).json({totalAnalysis, percentage, totalNewAnalysis});
         } catch (e) {
             next(e);
         }
@@ -100,6 +138,20 @@ module.exports = {
             const numberOfViewsByWeek = await viewService.getWeekViewStatist(currentWeek);
 
             res.status(statusCode.UPDATED).json(numberOfViewsByWeek);
+        }catch (e){
+            next(e);
+        }
+    },
+
+    getNumberOfPredictionsByWeek: async (req, res, next) => {
+        try {
+            const currentYear = new Date();
+            const currentWeek = new Date(currentYear);
+            currentWeek.setDate(currentYear.getDate() - currentYear.getDay());
+            currentWeek.setDate(currentWeek.getDate() + 1)
+
+            const numberOfPredictionsByWeek = await diseaseHistoryService.getWeekDiseaseStatist(currentWeek);
+            res.status(statusCode.UPDATED).json(numberOfPredictionsByWeek);
         }catch (e){
             next(e);
         }

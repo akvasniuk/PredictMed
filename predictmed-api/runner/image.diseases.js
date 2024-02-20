@@ -188,7 +188,7 @@ module.exports.imageDiseases = [
     {
         name: "okular",
         type: 'IMAGE',
-        photo: "https://storage.googleapis.com/kaggle-datasets-images/611716/1094714/3db9cfa539d5167c030fe4a367a47b7b/dataset-cover.jpg?t=2020-04-19-19-25-20",
+        photo: "https://domf5oio6qrcr.cloudfront.net/medialibrary/7349/7ae782c0-24f9-4128-97a9-8b64432bce76.jpg",
         apiPath: `${constants.FASTAPI_CONNECTION_URL}/okular/predict`,
         description: "Eye diseases encompass a wide range of conditions affecting the visual system. These can include disorders such as glaucoma, cataracts, and macular degeneration, each presenting unique challenges to vision and often requiring specialized medical attention.\n",
         partsOfTheBody: ["head"],

@@ -9,7 +9,7 @@ const _user = 'user';
 const authService = {
     register: (user) =>
         axiosService.post(urls.auth.register, user, {
-            headers: {'Content-type': 'application/json'}
+            headers: {'Content-type': 'multipart/form-data'}
         }),
     login: (credentials) =>
         axiosService.post(urls.auth.login, credentials, {

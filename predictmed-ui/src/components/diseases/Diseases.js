@@ -6,7 +6,7 @@ const Diseases = ({diseases}) => {
 
     return (
         <div>
-            {diseases.map(disease => <Disease key={disease.id} disease={disease}/>)}
+            {diseases.map(disease => <Disease key={disease._id} disease={disease}/>)}
         </div>
     );
 };

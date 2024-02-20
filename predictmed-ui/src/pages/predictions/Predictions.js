@@ -42,7 +42,6 @@ const Predictions = () => {
 
         getDiseases();
     }, [page, pageQty, location.search, navigation]);
-    console.log(location)
 
     return (
         pageQty && pageQty > 0 && (

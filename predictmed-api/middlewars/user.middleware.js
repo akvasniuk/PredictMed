@@ -52,6 +52,7 @@ module.exports = {
 
   isUserDataValid: async (req, res, next) => {
     try {
+      delete req.body["avatar"];
       const { error } = await userValidator.createUserValidator.validate(req.body);
 
       if (error) {

@@ -7,3 +7,4 @@ module.exports.diseaseService = require('./disease.service');
 module.exports.diseaseHistoryService = require('./disease.history.service');
 module.exports.userThreadService = require('./user.thread.service');
 module.exports.userHealthService = require('./user.health.service');
+module.exports.analyseService = require('./analyse.service');

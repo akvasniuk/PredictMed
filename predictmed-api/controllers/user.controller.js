@@ -116,6 +116,7 @@ module.exports = {
             const userId = createdUser._id.toString();
 
             if (avatar) {
+                console.log(avatar);
                 const {finalPath, pathForDB} = await fileHelper._filesDirBuilder(avatar.name, userId, AVATAR, USERS);
 
                 const photosOfAvatar = await fileHelper._filesDirBuilder(avatar.name, userId, AVATAR_PHOTOS, USERS);
@@ -123,8 +124,7 @@ module.exports = {
                 await avatar.mv(finalPath);
                 await avatar.mv(photosOfAvatar.finalPath);
                 await userService.updateUser({_id}, {
-                    avatar: pathForDB,
-                    $push: {avatarPhotos: photosOfAvatar.pathForDB}
+                    avatar: finalPath
                 });
             }
 

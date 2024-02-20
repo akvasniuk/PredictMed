@@ -1,4 +1,4 @@
-const {commentService, userThreadService} = require("../services");
+const {commentService, userThreadService, analyseService} = require("../services");
 const {statusCode, constants} = require("../constants");
 const OpenAI = require("openai");
 
@@ -10,6 +10,7 @@ module.exports = {
     analyse: async (req, res, next) => {
         try {
             const {diseaseName} = req.params;
+            await analyseService.insertAnalyse();
 
             const chatCompletion = await openai.chat.completions.create({
                 model: 'gpt-3.5-turbo',

@@ -11,15 +11,18 @@ const Home = () => {
   const [slot, setSlot] = useState('week');
   const [userStatistics, setUserStatistics] = useState();
   const [viewStatistics, setViewStatistics] = useState();
+  const [predictionStatistics, setPredictionStatistics] = useState();
+  const [analyseStatistics, setAnalyseStatistics] = useState();
   const [usersByMonth, setUsersByMonth] = useState();
   const [viewsByMonth, setViewsByMonth] = useState();
   const [usersByWeek, setUsersByWeek] = useState();
   const [viewsByWeek, setViewsByWeek] = useState();
+  const [predictionsByWeek, setPredictionsByWeek] = useState();
 
 
   const chooseColorOnPercentage = (percentage) => {
     let color;
-    console.log(percentage)
+
     if(percentage > 50 && percentage < 25){
       color = "warning";
     }else if(percentage < 25){
@@ -42,6 +45,24 @@ const Home = () => {
       try {
         const response = await statisticsService.getNumberOfViews();
         setViewStatistics(response?.data);
+      }catch (e){
+        console.log(e);
+      }
+    }
+
+    const getPredictionStatistic = async () => {
+      try {
+        const response = await statisticsService.getNumberOfPredictions();
+        setPredictionStatistics(response?.data);
+      }catch (e){
+        console.log(e);
+      }
+    }
+
+    const getAnalyseStatistic = async () => {
+      try {
+        const response = await statisticsService.getNumberOfAnalysis();
+        setAnalyseStatistics(response?.data);
       }catch (e){
         console.log(e);
       }
@@ -91,6 +112,15 @@ const Home = () => {
       }
     }
 
+    const getNumberOfPredictionsByWeek = async () => {
+      try {
+        const response = await statisticsService.getNumberOfPredictionsByWeek();
+        setPredictionsByWeek(response?.data);
+      }catch (e){
+        console.log(e);
+      }
+    }
+
     setView();
     getUserStatistic();
     getViewStatistic();
@@ -98,11 +128,13 @@ const Home = () => {
     getNumberOfViewsByMonth();
     getNumberOfUsersByWeek();
     getNumberOfViewsByWeek();
+    getPredictionStatistic();
+    getNumberOfPredictionsByWeek();
+    getAnalyseStatistic();
   }, []);
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
-      {/* row 1 */}
       <Grid item xs={12} sx={{ mb: -2.25 }}>
         <Typography variant="h5">Dashboard</Typography>
       </Grid>
@@ -115,10 +147,14 @@ const Home = () => {
                            percentage={userStatistics?.percentage?.toFixed(2)} extra={userStatistics?.totalNewUsers} />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Total Disease Analysis" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />
+        <AnalyticEcommerce title="Total Disease Prediction" color={chooseColorOnPercentage(predictionStatistics?.percentage)}
+                           count={predictionStatistics?.totalPredictions} percentage={predictionStatistics?.percentage?.toFixed(2)}
+                            extra={predictionStatistics?.totalNewPredictions} />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Total Disease Prediction" count="35,078" percentage={27.4} isLoss color="warning" extra="20,395" />
+        <AnalyticEcommerce title="Total Disease Analysis" color={chooseColorOnPercentage(analyseStatistics?.percentage)}
+                           count={analyseStatistics?.totalAnalysis} percentage={analyseStatistics?.percentage?.toFixed(2)}
+                           extra={analyseStatistics?.totalNewAnalysis} />
       </Grid>
 
       <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
@@ -160,7 +196,7 @@ const Home = () => {
       <Grid item xs={12} md={5} lg={4}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
-            <Typography variant="h5">Disease Overview</Typography>
+            <Typography variant="h5">Disease Analysis Overview</Typography>
           </Grid>
           <Grid item />
         </Grid>
@@ -172,7 +208,7 @@ const Home = () => {
               </Typography>
             </Stack>
           </Box>
-          <MonthlyBarChart />
+          <MonthlyBarChart predictionsByWeek={predictionsByWeek} />
         </MainCard>
       </Grid>
     </Grid>

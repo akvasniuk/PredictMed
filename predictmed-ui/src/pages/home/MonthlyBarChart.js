@@ -38,19 +38,45 @@ const barChartOptions = {
   }
 };
 
-const MonthlyBarChart = () => {
+const MonthlyBarChart = ({predictionsByWeek}) => {
   const theme = useTheme();
 
   const { primary, secondary } = theme.palette.text;
   const info = theme.palette.info.light;
 
-  const [series] = useState([
+  const weekNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const parsePredictionDataByWeek = predictionsByWeek?.map(entry => {
+    const {day} = entry._id;
+    const weekName = weekNames[day - 2];
+    return {
+      weekName,
+      day: day - 1,
+      count: entry?.count
+    }
+  });
+
+  const resultPredictionDataByWeek = Array(weekNames.length).fill(0);
+  parsePredictionDataByWeek?.forEach(entry => {
+    const {day, count} = entry;
+    resultPredictionDataByWeek[day - 1] = count
+  });
+
+  const [series, setSeries] = useState([
     {
-      data: [80, 95, 70, 42, 65, 55, 78]
+      data: resultPredictionDataByWeek.length > 0 && resultPredictionDataByWeek
     }
   ]);
 
   const [options, setOptions] = useState(barChartOptions);
+
+  useEffect(() => {
+    setSeries([
+      {
+        name: 'Disease Predictions',
+        data: resultPredictionDataByWeek
+      }
+    ]);
+  }, [predictionsByWeek]);
 
   useEffect(() => {
     setOptions((prevState) => ({
