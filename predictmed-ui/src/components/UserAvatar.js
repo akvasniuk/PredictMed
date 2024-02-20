@@ -15,10 +15,12 @@ const UserAvatar = ({saveImage}) => {
     const {getUser} = useAuth();
 
     useEffect(() => {
-        const {avatar} = getUser();
+        if(getUser()){
+            const {avatar} = getUser();
 
-        setState((prevState) =>
-            ({...prevState, avatar, originalAvatar: avatar}));
+            setState((prevState) =>
+                ({...prevState, avatar, originalAvatar: avatar}));
+        }
     }, []);
 
     const handleShuffle = () => {

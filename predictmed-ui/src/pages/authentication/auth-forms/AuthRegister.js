@@ -1,5 +1,6 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import Reaptcha from 'reaptcha';
 
 import {
     Box,
@@ -25,11 +26,35 @@ import {authService} from "../../../services";
 import {handleResponse} from "../../../helpers";
 
 import {EyeOutlined, EyeInvisibleOutlined} from '@ant-design/icons';
+import UserAvatar from "../../../components/UserAvatar";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import styled from "styled-components";
+import {REACT_APP_SITEKEY} from "../../../configs";
 
 const AuthRegister = () => {
     const [level, setLevel] = useState();
     const [showPassword, setShowPassword] = useState(false);
     const [response, setResponse] = useState("");
+    const [image, setImage] = useState();
+    const [chooseAvatar, setChooseAvatar] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(undefined);
+    const [isVerify, setIsVerify] = useState(false);
+
+    const captchaRef = useRef();
+
+    const verify = () => {
+        captchaRef.current.getResponse().then(res => {
+            setIsVerify(true);
+        })
+    }
+
+    const handleFileChange = (event) => {
+        setSelectedFile(event.target.files[0]);
+    }
+    const saveImage = (image) => {
+        setImage(image);
+    }
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -44,12 +69,24 @@ const AuthRegister = () => {
     };
 
     const handleSubmit = async (values) => {
-        const {email, password, firstname, lastname} = values;
+        const {email, password, firstname, lastname, avatar} = values;
 
         try {
-            const responseData = await authService.register({
-                email, password, firstname, lastname
-            });
+            let responseData;
+            if(chooseAvatar && selectedFile){
+                const formData = new FormData();
+                formData.append("avatar", avatar);
+                formData.append('email', email);
+                formData.append('password', password);
+                formData.append('firstname', firstname);
+                formData.append('lastname', lastname);
+                responseData = await authService.register(formData);
+            }else if(!chooseAvatar) {
+                responseData = await authService.register({
+                    email, password, firstname, lastname, avatar: image
+                });
+            }
+
             setResponse(handleResponse(responseData));
         } catch (e) {
             setResponse(handleResponse(e));
@@ -86,6 +123,7 @@ const AuthRegister = () => {
                     email: '',
                     password: '',
                     company: "",
+                    avatar: null,
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -98,6 +136,20 @@ const AuthRegister = () => {
                             const passwordLevel = strengthColor(temp);
                             return passwordLevel?.label === 'Good' || passwordLevel?.label === 'Strong';
                         }),
+                    avatar: Yup.mixed()
+                        .test('fileFormat', 'Only images are allowed', value => {
+                            if (value) {
+                                const supportedFormats = ['jpeg', 'png', 'gif'];
+                                return supportedFormats.includes(value.name.split('.').pop());
+                            }
+                            return true;
+                        })
+                        .test('fileSize', 'File size must be less than 1GB', value => {
+                            if (value) {
+                                return value.size <= 1073741824; // 1GB in bytes
+                            }
+                            return true
+                        })
                 })}
                 onSubmit={async (values, {setErrors, setStatus, setSubmitting}) => {
                     try {
@@ -180,6 +232,70 @@ const AuthRegister = () => {
                                     )}
                                 </Stack>
                             </Grid>
+                            <Grid container spacing={2} sx={{marginTop: 2}}>
+                                <Grid item xs={6}>
+                                    <Button
+                                        disableElevation
+                                        disabled={isSubmitting}
+                                        fullWidth
+                                        size="large"
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => setChooseAvatar(false)}
+                                    >
+                                        Choose Avatar
+                                    </Button>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Button
+                                        disableElevation
+                                        disabled={isSubmitting}
+                                        fullWidth
+                                        size="large"
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => setChooseAvatar(true)}
+                                    >
+                                        Upload Avatar
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            {!chooseAvatar && <Grid item xs={12}>
+                                <Stack spacing={1}>
+                                    <InputLabel htmlFor="image-change">Avatar</InputLabel>
+                                    <UserAvatar saveImage={saveImage}/>
+                                </Stack>
+                            </Grid>
+                            }
+                            {
+                                chooseAvatar &&
+                                <div style={{"marginTop": "15px"}}>
+                                    <Button
+                                        component="label"
+                                        role={undefined}
+                                        variant="contained"
+                                        tabIndex={-1}
+                                        startIcon={<CloudUploadIcon/>}
+                                    >
+                                        Upload file
+                                        <VisuallyHiddenInput type="file"
+                                                             id={`body--coreSheet2--avatar`}
+                                                             name="avatar"
+                                                             onChange={(e) => {
+                                                                 handleFileChange(e);
+                                                                 const file = e.target.files[0];
+                                                                 handleChange({
+                                                                     target: {
+                                                                         name: "avatar",
+                                                                         value: file
+                                                                     }
+                                                                 });
+                                                             }}/>
+                                    </Button>
+                                    {selectedFile && <p>Selected File: {selectedFile.name}</p>}
+                                </div>
+                            }
+
                             <Grid item xs={12}>
                                 <Stack spacing={1}>
                                     <InputLabel htmlFor="password-signup">Password</InputLabel>
@@ -240,9 +356,13 @@ const AuthRegister = () => {
                                     <FormHelperText error>{errors.submit}</FormHelperText>
                                 </Grid>
                             )}
+                            <div style={{"margin": "0 auto", "marginTop": "15px"}}>
+                                <Reaptcha ref={captchaRef} sitekey={REACT_APP_SITEKEY} onVerify={verify}></Reaptcha>
+                            </div>
+
                             <Grid item xs={12}>
                                 <AnimateButton>
-                                    <Button disableElevation disabled={isSubmitting} fullWidth size="large"
+                                    <Button disableElevation disabled={isSubmitting || !isVerify} fullWidth size="large"
                                             type="submit" variant="contained" color="primary">
                                         Create Account
                                     </Button>
@@ -264,5 +384,17 @@ const AuthRegister = () => {
         </>
     );
 };
+
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+});
 
 export default AuthRegister;

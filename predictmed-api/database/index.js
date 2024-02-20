@@ -7,3 +7,4 @@ module.exports.Disease = require('./Disease.model');
 module.exports.DiseaseHistory = require('./Disease.History.model');
 module.exports.UserThread = require('./User.Thread.model');
 module.exports.UserHealth = require('./User.Health.model');
+module.exports.Analyse = require('./Analyse.model');

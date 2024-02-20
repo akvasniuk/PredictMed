@@ -11,11 +11,14 @@ const urls = {
     statistics: {
         getNumberOfUsers: "/statistics/totalUserStatistics",
         getNumberOfViews: "/statistics/totalViewStatistics",
+        getNumberOfPredictions: "/statistics/totalPredictionStatistics",
+        getNumberOfAnalysis: "/statistics/totalAnalysisStatistics",
         setView: "/statistics/view",
         getNumberOfUsersByMonth: "/statistics/totalUsersStatisticsByMonth",
         getNumberOfViewsByMonth: "/statistics/totalViewStatisticsByMonth",
         getNumberOfUsersByWeek: "/statistics/totalUsersStatisticsByWeek",
-        getNumberOfViewsByWeek: "/statistics/totalViewStatisticsByWeek"
+        getNumberOfViewsByWeek: "/statistics/totalViewStatisticsByWeek",
+        getNumberOfPredictionsByWeek: "/statistics/totalPredictionStatisticsByWeek",
     },
     user: {
         userURL: "/users/",

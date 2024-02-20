@@ -15,7 +15,7 @@ const CommentCore = Loadable(lazy(() => import("pages/comment/Core")));
 const PredictsPage = Loadable(lazy(() => import("pages/predictions/Predictions")));
 const PredictStepsPage = Loadable(lazy(() => import("pages/prediction/PredictionSteps")));
 const AnalyseBot = Loadable(lazy(() => import("pages/analyse-bot/AnalyseBot")));
-const SamplePage = Loadable(lazy(() => import("pages/health-tracker/SamplePage")));
+const HealthTracker = Loadable(lazy(() => import("pages/health-tracker/HealthTracker")));
 
 const MainRoutes = {
   path: "/",
@@ -52,7 +52,7 @@ const MainRoutes = {
     },
     {
       path: "healthTracker",
-      element: <SamplePage />,
+      element: <HealthTracker />,
     },
     {
       path: "edit",

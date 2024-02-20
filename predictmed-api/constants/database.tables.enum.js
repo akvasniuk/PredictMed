@@ -7,5 +7,6 @@ module.exports = {
   DISEASE: "Disease",
   DISEASE_HISTORY: "Disease_History",
   USER_THREAD: "User_Thread",
-  USER_HEALTH: "User_Health"
+  USER_HEALTH: "User_Health",
+  ANALYSE: "Analyse"
 };

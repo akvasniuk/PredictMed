@@ -82,7 +82,7 @@ module.exports = {
           throw new ErrorHandler(statusCode.BAD_REQUEST, errorMessage.JUST_ONE_PHOTO.message, errorMessage.JUST_ONE_PHOTO.code);
         }
 
-        [req.avatar] = req.photos;
+        req.avatar = req.photos[0];
       }
 
       next();
