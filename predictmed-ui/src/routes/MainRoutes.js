@@ -40,19 +40,19 @@ const MainRoutes = {
     },
     {
       path: "predict",
-      element: <PredictsPage />,
+      element: <PrivateRoute><PredictsPage /></PrivateRoute>,
     },
     {
       path: "predict/:predictionId",
-      element: <PredictStepsPage />,
+      element: <PrivateRoute><PredictStepsPage /></PrivateRoute>,
     },
     {
       path: "analyseBot",
-      element: <AnalyseBot />,
+      element: <PrivateRoute><AnalyseBot /></PrivateRoute>,
     },
     {
       path: "healthTracker",
-      element: <HealthTracker />,
+      element: <PrivateRoute><HealthTracker /></PrivateRoute>,
     },
     {
       path: "edit",

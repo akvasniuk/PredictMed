@@ -1,0 +1,41 @@
+version: "3"
+services:
+  ui:
+    build:
+      context: ./predictmed-ui
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./predictmed-api
+    ports:
+      - "3005:3005"
+    environment:
+      DB_CONNECTION_URL: "mongodb://mongo:27017/predictmed"
+      FASTAPI_CONNECTION_URL: "http://ml:8000"
+    networks:
+      - app-network
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    networks:
+      - app-network
+    ports:
+      - "27016:27017"
+
+  ml:
+    build:
+      context: ./predictmed-ml
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
