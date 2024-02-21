@@ -33,6 +33,6 @@ module.exports = Joi.object({
     bodyFat: Joi
         .number()
         .min(1)
-        .max(100)
+        .max(300)
         .required(),
 });

@@ -130,7 +130,7 @@ const HealthTracker = () => {
                                 }
                             )
                             .required('Blood Pressure is required'),
-                        stepCount: Yup.number().max(255).min(0).required('Step count is required'),
+                        stepCount: Yup.number().max(1000000).min(0).required('Step count is required'),
                         heartRate: Yup.number().min(10).max(300).required('Heart rate is required'),
                         bodyFat: Yup.number().min(10).max(300).required('Body fat is required'),
                     })}
@@ -334,26 +334,26 @@ const HealthTracker = () => {
 
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={6} md={3}>
-                        <AppWidgetSummary title="Height" total={fitnessData && `${fitnessData.latestUserHealth.height} cm`} icon={'game-icons:body-height'}/>
+                        <AppWidgetSummary title="Height" total={fitnessData && fitnessData.latestUserHealth && `${fitnessData?.latestUserHealth.height} cm`} icon={'game-icons:body-height'}/>
                     </Grid>
 
 
                     <Grid item xs={12} sm={6} md={3}>
-                        <AppWidgetSummary title="Weight" total={fitnessData && `${fitnessData.latestUserHealth.weight} kg`} color="info"
+                        <AppWidgetSummary title="Weight" total={fitnessData && fitnessData.latestUserHealth && `${fitnessData?.latestUserHealth.weight} kg`} color="info"
                                           icon={'fa6-solid:weight-scale'}/>
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={3}>
-                        <AppWidgetSummary title="Blood Pressure" total={fitnessData && `${fitnessData.latestUserHealth.bloodPressure} mmHg`} color="warning"
+                        <AppWidgetSummary title="Blood Pressure" total={fitnessData && fitnessData.latestUserHealth && `${fitnessData?.latestUserHealth.bloodPressure} mmHg`} color="warning"
                                           icon={'material-symbols:blood-pressure-sharp'}/>
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={3}>
-                        <AppWidgetSummary title="Step Count" total={fitnessData && `${fitnessData.latestUserHealth.stepCount}`} color="error" icon={'material-symbols:steps'}/>
+                        <AppWidgetSummary title="Step Count" total={fitnessData && fitnessData.latestUserHealth && `${fitnessData?.latestUserHealth.stepCount}`} color="error" icon={'material-symbols:steps'}/>
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={3}>
-                        <AppWidgetSummary title="Heart Rate" total={fitnessData && `${fitnessData.latestUserHealth.heartRate} bpm`} color="error"
+                        <AppWidgetSummary title="Heart Rate" total={fitnessData && fitnessData.latestUserHealth && `${fitnessData.latestUserHealth.heartRate} bpm`} color="error"
                                           icon={'streamline:heart-rate-pulse-graph-solid'}/>
                     </Grid>
                 </Grid>
