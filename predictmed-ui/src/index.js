@@ -7,6 +7,8 @@ import AuthProvider from './components/AuthProvider';
 import App from './App';
 import { store } from 'store';
 
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
@@ -18,3 +20,5 @@ root.render(
       </BrowserRouter>
     </ReduxProvider>
 );
+
+serviceWorkerRegistration.unregister();
