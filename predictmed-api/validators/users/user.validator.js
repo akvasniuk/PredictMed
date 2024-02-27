@@ -20,5 +20,7 @@ module.exports = Joi.object({
         .string()
         .min(8)
         .max(256)
-        .required()
+        .required(),
+    avatar: Joi
+        .string()
 });
