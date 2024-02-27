@@ -20,7 +20,7 @@ const {
     emailActionImage: {
         UPDATE_IMAGE,
         DELETE_IMAGE
-    }
+    }, constants
 } = require('../constants');
 const {userService, mailService} = require('../services');
 const {passwordHelper, userHelper, authHelper} = require('../helpers');
@@ -105,13 +105,14 @@ module.exports = {
             const hashedPassword = await passwordHelper.hash(password);
 
             const {emailToken} = authHelper.generateEmailToken();
+            console.log(req.body, avatar)
 
             const createdUser = await userService.insertUser({...req.body, password: hashedPassword});
 
             const {_id} = createdUser;
 
             await OAuth.create({emailToken, user: _id});
-            await mailService.sendMail(email, VERIFY_ACCOUNT, {userName: name, emailToken});
+            await mailService.sendMail(email, VERIFY_ACCOUNT, {userName: name, emailToken, port: constants.PORT});
 
             const userId = createdUser._id.toString();
 
